@@ -13117,10 +13117,11 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Crawling-the-Web">Crawling the Web<a class="anchor-link" href="#Crawling-the-Web">&#182;</a></h1><p><img src="websites.jpg" alt="Websites as a source of information"></p>
-<p>I tried extracting information from HTML pages by writing Python code.  This is what I had to think through to process the data. TLDR; It worked mostly, but I still had to do some manual editing.  I should have written more exploratory code to find out what I'm getting into first, before writing code to do the actual task.  Next time.</p>
-<p>Also, I'm using the Chrome browser, and if you're not, these instructions will vary.</p>
-<h2 id="An-example">An example<a class="anchor-link" href="#An-example">&#182;</a></h2><p>I decided to get CIA Factbook data from [CIA factbook].  Initially, I considered the option of using a web crawler to get the data.  Here's some information on what a webcrawler should consider.</p>
-<h3 id="robots.txt">robots.txt<a class="anchor-link" href="#robots.txt">&#182;</a></h3><p>Downloading data from a website is not as easy as it looks.  Each website has a robots.txt file that will show you which areas of the site your software can go to, and which areas it cannot.  Here's an example of the file from <a href="https://www.yahoo.com/robots.txt">Yahoo</a>:</p>
+<p>I tried extracting information from HTML pages by writing Python code. This is what I had to think through to process the data.</p>
+<p>TLDR; It worked , but I still had to do some manual editing. I should have explored the data, before writing code to do the actual task. Next time.</p>
+<p>Also, I’m using the Chrome browser, and if you’re not, these instructions will vary.</p>
+<h2 id="An-example">An example<a class="anchor-link" href="#An-example">&#182;</a></h2><p>I decided to get the CIA Factbook data from the <a href="https://www.cia.gov/library/publications/download/">CIA website</a>. I considered the option of using a web crawler to get the data. Here’s some information on what a web crawler should consider.</p>
+<h3 id="robots.txt">robots.txt<a class="anchor-link" href="#robots.txt">&#182;</a></h3><p>Downloading data from a website is not as easy as it looks. The robots.txt file on a website indicates which areas your bot can see. Here’s an example of the file from <a href="https://www.yahoo.com/robots.txt">Yahoo</a>:</p>
 
 <pre><code>User-agent: *
 Disallow: /p/
@@ -13138,23 +13139,28 @@ Disallow: /fpjs
 Disallow: /myjs
 
 </code></pre>
-<p>As you can see, there are many parts of the Yahoo website that a robot may not go.  Anything that is not disallowed, is considered open for web crawlers.  If the website wanted to not allow any robots at all, it would put this in the robots.txt file:
+<p>As you can see, there are many parts of the Yahoo website that a robot may not go. Anything that is not disallowed, is open for web crawlers. If the website wanted to not allow any robots at all, it would put this in the robots.txt file: 
     User-agent: *
     Disallow: /</p>
-<h3 id="User-agent">User-agent<a class="anchor-link" href="#User-agent">&#182;</a></h3><p>The user-agent data can be easily spoofed, and is not considered as important.  To find your user-agent, look in your browser.  For Chrome:</p>
+<h3 id="User-agent">User-agent<a class="anchor-link" href="#User-agent">&#182;</a></h3><p>Anyone can spoof the user-agent. This value is not considered important. To find your user-agent, look in your browser. For Chrome:</p>
 
 <pre><code>1. Open the "Developer Tools"
-2. Select the "Network" tab
-3. Load Google's home page. You will see a lot of scrolling in  the Network tab.
-4. Select the topmost item in the list (this will be the GET request to google.com).
-5. On the "Request Headers" - click "view source".
-6. Check the "User-Agent" line that is added by your browser. In my case, the user-agent was:
+
+2. Select the "Network" tab 
+
+3. Load Google's home page. You will see a lot of scrolling in the Network tab. 
+
+4. Select the topmost item in the list (this will be the GET request to google.com). 
+
+5. On the "Request Headers" - click "view source". 
+
+6. Check the "User-Agent" line in your browser. In my case, the user-agent was: 
 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36
 
 </code></pre>
-<h3 id="Delay">Delay<a class="anchor-link" href="#Delay">&#182;</a></h3><p>Now that you can visit some of Yahoo's website, you must make sure that you don't hit it too often.  It is better to put a delay between visits - probably something more than a minute  This way, the website owners will not block you from visiting.</p>
-<h3 id="Other-better-options">Other better options<a class="anchor-link" href="#Other-better-options">&#182;</a></h3><p>If you can avoid scraping the website, that would be the option to take.  For my case, the CIA Factbook was available for download [here.]</p>
-<p>Another option is if you can get an API (ex. Twitter API to download tweets).  Then the work you have to do is to understand the API and use it correctly.  With sites like Twitter, there are many people who have already successfully used their API and got it to work  Search in your favorite browser for anything you don't understand.</p>
+<h3 id="Delay">Delay<a class="anchor-link" href="#Delay">&#182;</a></h3><p>Now that you can visit some of Yahoo’s website, you must make sure that you don’t visit too often. It is better to put a delay between visits — something like a few seconds. This way, the website owners will not block you from visiting.</p>
+<h3 id="Other-better-options">Other better options<a class="anchor-link" href="#Other-better-options">&#182;</a></h3><p>If you can avoid scraping the website, that would be the option to take. For my case, the CIA Factbook was available for download <a href="https://www.cia.gov/library/publications/download/">here</a>.</p>
+<p>Another option is if you can get an API (ex. Twitter API to download tweets). Then the work you have to do is to understand the API and use it.  Many people have used their API, and you can too.  Search in your favorite browser for anything you don’t understand about the API.</p>
 
 </div>
 </div>
@@ -13162,22 +13168,30 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Understanding-HTML">Understanding HTML<a class="anchor-link" href="#Understanding-HTML">&#182;</a></h2><h3 id="Looking-at-the-HTML-code">Looking at the HTML code<a class="anchor-link" href="#Looking-at-the-HTML-code">&#182;</a></h3><p>Now that you have the HTML, you have to extract information from it.  One way to see the HTML side-by-side with the web page is:</p>
+<h2 id="Understanding-HTML">Understanding HTML<a class="anchor-link" href="#Understanding-HTML">&#182;</a></h2><h3 id="Looking-at-the-HTML-code">Looking at the HTML code<a class="anchor-link" href="#Looking-at-the-HTML-code">&#182;</a></h3><p>Now that you have the HTML, you have to extract information from it. One way is to see the HTML side-by-side with the web page:</p>
+<ol>
+<li><p>Open the downloaded file in your browser.  You should give the full pathname to your file (ex. file:///Users/YourName/data/file1.html)</p>
+</li>
+<li><p>Open Developer Tools.  This will open a window on the right side of the page.  Select the Elements tab on that page.</p>
+</li>
+<li><p>Select a value on the HTML page. Right click, and select 'Inspect'.  The right side will expand to the correct location.  This beats having to browse through the whole HTML and opening sections until you find the spot.</p>
+</li>
+<li><p>Keep selecting the little arrows in the right window to open some other sections in the HTML. As you move your mouse over the HTML, it will highlight the selection on the left hand side. This way, you can narrow down to the section you want to look at</p>
+</li>
+</ol>
+<h3 id="Understanding-basic-HTML-syntax">Understanding basic HTML syntax<a class="anchor-link" href="#Understanding-basic-HTML-syntax">&#182;</a></h3><p>Angle brackets contain HTML tags. The name within those brackets is the name of the tag. Here we show two tags (the start and end tags of the element). A '/' prepends the end tag’s name.</p>
 
-<pre><code>1. Open the downloaded file in your browser.  You should give the full pathname to your file (ex. file:///Users/YourName/data/file1.html)
-2. Open Developer Tools.  This will open a window on the right side of the page.  Make sure the Elements tab is selected on that page.
-3. If you're curious about how a particular value on the left side (on the actual page) looks like in HTML, highlight that value, then right-click and select 'Inspect'.  The right side will expand to the correct location.  This beats having to browse through the whole HTML and opening sections until you find the spot.
-4. If you for some reason cannot select the item on the left hand side (the actual page), you can keep selecting the little arrows inside the right window to open some sections of the HTML.  As you move your mouse over the HTML, it will highlight the selection on the left hand side. This way, you can narrow down to the section you want to look at
-</code></pre>
-<h3 id="Understanding-basic-HTML-syntax">Understanding basic HTML syntax<a class="anchor-link" href="#Understanding-basic-HTML-syntax">&#182;</a></h3><p>HTML tags are made of angle brackets.  The name within those brackes is the name of the tag.  Here we show two tags (the start and end tags of the element).  The end tag's name is prepended with the '/'.</p>
-
-<pre><code>&lt;body&gt;
+<pre><code>```html
+&lt;body&gt;
 &lt;/body&gt;
+```
 
 </code></pre>
-<p>Some tags do not have an end tag.  These tags end with a space followed by a '/' after their name.  This is a line break tag and produces an extra vertical space:</p>
+<p>Some tags do not have an end tag. These tags end with a space followed by a ‘/’ after their name. This is a line break tag and produces an extra vertical space:</p>
 
-<pre><code> &lt;br /&gt;</code></pre>
+<pre><code>```html
+&lt;br /&gt;
+```</code></pre>
 
 </div>
 </div>
@@ -13185,15 +13199,17 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="BeautifulSoup">BeautifulSoup<a class="anchor-link" href="#BeautifulSoup">&#182;</a></h2><p>Python's BeautifulSoup allows you to process HTML code.  <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">This</a> is the official website, and the documentation is really good.  I will only go through a minor part of what BeautifulSoup can do.  You should really read the documentation to get the most out of it.</p>
-<p>To process the HTML file, you read it in it's entirety as a string, and pass it to BeautifulSoup.</p>
+<h2 id="BeautifulSoup">BeautifulSoup<a class="anchor-link" href="#BeautifulSoup">&#182;</a></h2><p>Python’s BeautifulSoup allows you to process HTML code. This is the official website, and the documentation is good. I will only go through a minor part of what BeautifulSoup can do. You should read the documentation to get the most out of it.</p>
+<p>To process the HTML file, you read it in it’s entirety as a string, and pass it to BeautifulSoup.</p>
 
-<pre><code>with open(filename, 'r') as f: 
+<pre><code>```python
+with open(filename, 'r') as f: 
     soup = BeautifulSoup(f.read(), 'html_parser')
+```
 
 </code></pre>
-<p>Of course, you should put the above in a try/except block.  It's a good idea when calling library functions, since you never know how they will change and raise exceptions as you update your libraries.</p>
-<p>The soup object can be used to find tags with a specific name, or with a specific attribute, or both.</p>
+<p>Of course, you should put the above in a try/except block. Library functions keep changing.  If you update your libraries (pandas, numpy, etc.), the library code changes.  If some function you're using misbehaves and throws an exception, you want to catch it.</p>
+<p>soup.find() finds the first tag with the given name. soup.findall() returns an object containing all tags with the given name. Specify a name, attribute, or both in those function calls.</p>
 
 </div>
 </div>
@@ -13211,14 +13227,14 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like 
     &lt;/td&gt;
 
 </code></pre>
-<p>Yes, I know it's grungy.  Maybe this is the norm - most customers don't look at HTML code.</p>
-<p>Notice the first <td> tag has the 'class' attribute whose value is 'fl_region'.  It's child is the string 'Afghanistan'.  The second <td> tag has the class 'category_data', and it's child is '2.629% (2009 est.)'.  The second <td> tag is the child of the first <td> tag.</p>
-<p>What's more, there is another hidden child, between the <a> tag and the second <td> tag, and that is the '\n' (carraige return) value.</p>
-<p>This code gets you all the <td> tags that match the class value, and the country name:</p>
+<p>Yes, I know it’s grungy.  Customers don’t look at HTML code, so it may not be pretty.</p>
+<p>Notice the first tag has the ‘class’ attribute whose value is ‘fl_region’. Its child is the <a> tag, whose child is the string ‘Afghanistan’. The <a> tag's sibling is the <td> tag with the class ‘category_data’, and its child is ‘2.629% (2009 est.)’.</p>
+<p>What’s more, there is another hidden child, between the <a> tag and the second <td> tag, and that is the ‘\n’ (carriage return) value.</p>
+<p>This code gets you all the tags that match the class value, and the country name. This is an example. You should find the data using “category_data”, and then put it in a dictionary with the key as the country name.</p>
 <div class="highlight"><pre><span></span><span class="n">matching_tds</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;td&#39;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span> <span class="s1">&#39;fl_region&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">matching_tds</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">string</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">country</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">matching_tds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">string</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">country</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                 <span class="k">if</span> <span class="p">((</span><span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> \
                     <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)):</span>
                     <span class="n">country</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
@@ -13230,13 +13246,17 @@ Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>Text can contain whatever the user wants to put in.  Since HTML is text, it can be different from tag to tag.  In the above example, if the tags were not exactly the same, your code would need to change.  If the values were not exactly the same, your code will need to change further.</p>
-<p>Having gone through this now, I would change my approach this way:</p>
+<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>Text can contain whatever the user wants to put in. Since HTML is text, it can be different from tag to tag. In the above example, if the tags were not exactly the same, your code would need to change. If the values were not exactly the same, your code will need to change further.</p>
+<p>Having gone through this now, I would change my approach like this:</p>
 
-<pre><code>1. If possible, use an API to get the data.  This puts the onus on the API creator to have the data in a good format.  It puts the onus on you to learn the API.
-2. Write code to find out more information about how similar your tags/values are.  Or maybe you read the HTML file to check if they're consistent.  For a small file, this is fine.  For a large file, or multiple files, you may have to write at least some code.
-3. Put the output of your code into a dictionary.  The keys will be the country name (for example), and the value the tag with the data.  The idea is to put the more variable data as the key.  Putting it in a dictionary will give you unique keys, thus showing you what variability there is, and how to code for it.
-4. Decide how to code for the variability, and go for it.</code></pre>
+<pre><code>1. If possible, use an API to get the data.  This puts the onus on the API creator to have the data in a good format.  It puts the onus on you to learn the API.  If you're going to use the API over and over again, it's less work to learn it in the beginning.
+
+2. Write code to find out more information about how similar your tags/values are.  Or read the HTML file to check if they're consistent.  For a small file, this is fine.  For a large file, or many files, you may have to write at least some code.
+
+3. Put the output of your code into a dictionary.  The keys will be the country name (for example), and the value the tag with the data.  The idea is to put the more variable data as the key. Since dictionary keys are unique, you will see all unique keys without repeats.
+You can see how to structure your code to process them further.  This is in case there are sub-structures under the key.
+
+4. Decide how to code for the variability in the keys, and go for it.</code></pre>
 
 </div>
 </div>
